@@ -1,0 +1,8 @@
+<p>Files in the repository where you have access</p>
+<table class="table table-hover">
+    <tbody>
+        <tr *ngFor="let item of accessibleFiles" class="table-success">
+          <th scope="row"><a href="#">{{item.name}}</a></th>
+        </tr>
+    </tbody>
+</table>

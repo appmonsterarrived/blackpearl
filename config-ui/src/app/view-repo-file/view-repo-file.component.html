@@ -1,0 +1,42 @@
+<p>Showing properties for {{repoFileInfo.length}} applications for user - <b>{{dataService.GreetingMessage}}</b>  </p>
+<table class="table table-hover">
+    <tbody>
+        <tr *ngFor="let item of repoFileInfo" class="table-success">
+          <th scope="row">
+            <span>{{item.applicationName}} - </span><a *ngFor="let file of item.files; let i=index" href="#" (click)="onClickFileName(file)">{{file}} ,</a>
+          </th>
+        </tr>
+    </tbody>
+</table>
+<hr>
+<label *ngIf="fileSelected"><b>file: </b>{{fileSelected}} - <b>sha: </b> [{{sha}}]</label>
+<form class="form-inline" [formGroup]="viewFileForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="form-group col-md-8">
+      <div class="col-md-12">
+            <textarea  rows="15" cols="200" [(ngModel)]="data" class="form-control" id="fileContent" formControlName="fileContent">
+            </textarea>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <label *ngIf="historyData.length>0">last 5 commits</label><br>
+        <pre *ngIf="updateResponse">{{updateResponse | json}}</pre>
+        <small class="text-muted" *ngFor="let hist of historyData">
+          date [{{hist.commit.committer.date}}] <br>
+          message - [{{hist.commit.message}}] | 
+          <a target="_blank" href="{{hist.html_url}}">open</a><br><br>
+        </small>
+      </div>
+    </div>
+    <label>Commit Message</label>
+    <div class="row">
+        <div class="form-group col-md-8">
+        <div class="col-md-12">
+              <textarea  rows="1" cols="100" [(ngModel)]="commitMessage" class="form-control" id="commitMessage" formControlName="commitMessage">
+              </textarea>
+          </div>
+        </div>
+      </div>
+    <br>
+    <button type="submit" class="btn btn-primary">Commit</button>
+  </form>
